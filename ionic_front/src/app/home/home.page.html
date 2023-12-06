@@ -1,20 +1,92 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+    <ion-title>Portafolio</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <!-- Card 1: Nombre y Descripción -->
+  <ion-card>
+    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+    <ion-card-header>
+      <ion-card-title>Card Title</ion-card-title>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+    </ion-card-header>
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+    <ion-card-content>
+      Here's a small text description for the card content. Nothing more, nothing less.
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Card 2: Años, Ciudad, País y Correo Electrónico -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Años de Experiencia</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Ciudad: Ciudad Ejemplo</p>
+      <p>País: País Ejemplo</p>
+      <p>Correo Electrónico: correocom</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Card 3: Redes Sociales -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Card Title</ion-card-title>
+      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+          </ion-thumbnail>
+          <ion-label>Item</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+          </ion-thumbnail>
+          <ion-label>Item</ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+          </ion-thumbnail>
+          <ion-label>Item</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Card 4: Intereses -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Intereses</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <p>Descripción de mis intereses y pasatiempos.</p>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Card 5: Frameworks y Avance -->
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Frameworks</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>Nombre del Framework 1 - Avance 70%</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-label>Nombre del Framework 2 - Avance 85%</ion-label>
+        </ion-item>
+        <!-- Agrega más frameworks aquí -->
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

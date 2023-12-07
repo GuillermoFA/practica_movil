@@ -4,89 +4,102 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+
+<ion-content [fullscreen]="true">
   <!-- Card 1: Nombre y Descripción -->
-  <ion-card>
-    <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+  <ion-card *ngIf="user" >
     <ion-card-header>
-      <ion-card-title>Card Title</ion-card-title>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
+      <ion-card-title>{{ isEditing ? 'Editar Perfil' : user.$values[0].Name }}</ion-card-title>
     </ion-card-header>
-
     <ion-card-content>
-      Here's a small text description for the card content. Nothing more, nothing less.
+      <!-- Muestra el formulario de edición si estás editando -->
+      <ion-item *ngIf="isEditing">
+        <ion-label position="stacked">Nombre</ion-label>
+        <ion-input [(ngModel)]="editedName"></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="isEditing">
+        <ion-label position="stacked">Descripción</ion-label>
+        <ion-input [(ngModel)]="editedDescription"></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="isEditing">
+        <ion-label position="stacked">Ciudad</ion-label>
+        <ion-input [(ngModel)]="editedCity"></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="isEditing">
+        <ion-label position="stacked">País</ion-label>
+        <ion-input [(ngModel)]="editedCountry"></ion-input>
+      </ion-item>
+
+      <ion-item *ngIf="isEditing">
+        <ion-label position="stacked">Correo Electrónico</ion-label>
+        <ion-input [(ngModel)]="editedEmail"></ion-input>
+      </ion-item>
+
+      <!-- Muestra los datos del perfil si no estás editando -->
+      <div *ngIf="!isEditing">
+        <p><strong>Nombre:</strong> {{ user.$values[0].Name }}</p>
+        <p><strong>Descripción:</strong> {{ user.$values[0].Description }}</p>
+        <p><strong>Ciudad:</strong> {{ user.$values[0].City }}</p>
+        <p><strong>País:</strong> {{ user.$values[0].Country }}</p>
+        <p><strong>Correo Electrónico:</strong> {{ user.$values[0].Email }}</p>
+      </div>
+
+      <ion-button *ngIf="!isEditing" (click)="editProfile()" expand="full" class="ion-margin-top botonBorder" >Editar Perfil</ion-button>
+      <ion-button *ngIf="isEditing" (click)="saveProfile()" expand="full" class="ion-margin-top botonBorder" color="success">Guardar Perfil</ion-button>
     </ion-card-content>
   </ion-card>
 
-  <!-- Card 2: Años, Ciudad, País y Correo Electrónico -->
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Años de Experiencia</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <p>Ciudad: Ciudad Ejemplo</p>
-      <p>País: País Ejemplo</p>
-      <p>Correo Electrónico: correocom</p>
-    </ion-card-content>
-  </ion-card>
-
-  <!-- Card 3: Redes Sociales -->
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Card Title</ion-card-title>
-      <ion-card-subtitle>Card Subtitle</ion-card-subtitle>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-list>
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-label>Item</ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-label>Item</ion-label>
-        </ion-item>
-
-        <ion-item>
-          <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
-          </ion-thumbnail>
-          <ion-label>Item</ion-label>
-        </ion-item>
-      </ion-list>
-    </ion-card-content>
-  </ion-card>
-
-  <!-- Card 4: Intereses -->
-  <ion-card>
+  <ion-card *ngIf="user && user.$values.length > 0" >
     <ion-card-header>
       <ion-card-title>Intereses</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p>Descripción de mis intereses y pasatiempos.</p>
+      <!-- Muestra la lista de intereses si no estás editando -->
+      <ion-list *ngIf="!isEditingInterests">
+        <ion-item *ngFor="let interest of user.$values[0].Interests.$values">
+          <ion-label>{{ interest.Description }}</ion-label>
+        </ion-item>
+      </ion-list>
+
+      <!-- Muestra el formulario de edición de intereses si estás editando -->
+      <ion-list *ngIf="isEditingInterests">
+        <ion-item *ngFor="let interest of user.$values[0].Interests.$values">
+          <ion-label>{{ interest.Description }}</ion-label>
+          <ion-input [(ngModel)]="editedInterests[interest.Id]"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <!-- Botones para cambiar entre modo edición y modo visualización -->
+      <ion-button *ngIf="!isEditingInterests" (click)="editInterests()" expand="full" class="ion-margin-top">Editar Intereses</ion-button>
+      <ion-button *ngIf="isEditingInterests" (click)="saveInterests()" expand="full" class="ion-margin-top" color="success">Guardar Intereses</ion-button>
     </ion-card-content>
   </ion-card>
 
-  <!-- Card 5: Frameworks y Avance -->
-  <ion-card>
+  <ion-card *ngIf="user && user.$values.length > 0" >
     <ion-card-header>
       <ion-card-title>Frameworks</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-list>
-        <ion-item>
-          <ion-label>Nombre del Framework 1 - Avance 70%</ion-label>
+      <!-- Muestra la lista de frameworks si no estás editando -->
+      <ion-list *ngIf="!isEditingFrameworks">
+        <ion-item *ngFor="let framework of user.$values[0].Frameworks.$values">
+          <ion-label>{{ framework.Name }} - Avance {{ framework.Description }}</ion-label>
         </ion-item>
-        <ion-item>
-          <ion-label>Nombre del Framework 2 - Avance 85%</ion-label>
-        </ion-item>
-        <!-- Agrega más frameworks aquí -->
       </ion-list>
+
+      <!-- Muestra el formulario de edición de frameworks si estás editando -->
+      <ion-list *ngIf="isEditingFrameworks">
+        <ion-item *ngFor="let framework of user.$values[0].Frameworks.$values">
+          <ion-label>{{ framework.Name }} - Avance {{ framework.Description }}</ion-label>
+          <ion-input [(ngModel)]="editedFrameworks[framework.Id]"></ion-input>
+        </ion-item>
+      </ion-list>
+
+      <!-- Botones para cambiar entre modo edición y modo visualización -->
+      <ion-button *ngIf="!isEditingFrameworks" (click)="editFrameworks()" expand="full" class="ion-margin-top">Editar Frameworks</ion-button>
+      <ion-button *ngIf="isEditingFrameworks" (click)="saveFrameworks()" expand="full" class="ion-margin-top" color="success">Guardar Frameworks</ion-button>
     </ion-card-content>
   </ion-card>
-</ion-content>
